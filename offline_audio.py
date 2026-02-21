@@ -9,11 +9,11 @@ from pydub import AudioSegment
 @st.cache_resource
 def load_cached_model(model_size):
     model = WhisperModel(
-        model_size_or_path="small", # tiny / base / small / medium / large-v3 / turbo
-        device="cpu",               # use "cuda" se tiver GPU
-        compute_type="int8",        # economiza RAM
-        cpu_threads=os.cpu_count(), #
-        num_workers=4               # paralelismo interno
+        model_size_or_path=model_size,  # tiny / base / small / medium / large-v3 / turbo
+        device="cpu",                   # use "cuda" se tiver GPU
+        compute_type="int8",            # economiza RAM
+        cpu_threads=os.cpu_count(),     #
+        num_workers=4                   # paralelismo interno
     )
     return model
 
@@ -63,7 +63,7 @@ def transcribe_stream(model, audio_file, output_box):
 
 # ---------- UI ----------
 st.subheader("Transcrição de Áudio - Faster Whisper")
-lista_modelos = ['tiny', 'base', 'small', 'medium']
+lista_modelos = ['tiny', 'base', 'small', 'medium', 'large']
 modelo = st.selectbox("Escolha o modelo: ", lista_modelos, index=1)
 model = load_cached_model(modelo)
 
